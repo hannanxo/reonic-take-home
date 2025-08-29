@@ -9,18 +9,24 @@ function App() {
   const [results, setResults] = useState<SimulationResults>(initialResults);
   const [parameters, setParameters] =
     useState<SimulationParameters>(defaultParameters);
+  const [simulating, setSimulating] = useState(false);
 
+  const handleSimulate = async () => {
+    if (simulating) return;
+    setSimulating(true);
+    await new Promise((r) => setTimeout(r, 1000));
+    setResults(getRandomMockResults(parameters));
+    setSimulating(false);
+  };
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header
-        onSimulate={() => {
-          setResults(getRandomMockResults(parameters));
-        }}
-      />
+      <Header simulating={simulating} onSimulate={handleSimulate} />
+
       <Dashboard
         results={results}
         parameters={parameters}
         onParametersChange={setParameters}
+        simulating={simulating}
       />
     </div>
   );

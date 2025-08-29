@@ -1,18 +1,10 @@
-import { useState } from "react";
 import LightningIcon from "../assets/LightningIcon";
 
 interface HeaderProps {
-  onSimulate: () => void;
+  simulating: boolean;
+  onSimulate: () => void | Promise<void>;
 }
-const Header = ({ onSimulate }: HeaderProps) => {
-  const [simulating, setSimulating] = useState(false);
-
-  const handleClick = () => {
-    if (simulating) return;
-    setSimulating(true);
-    onSimulate();
-    setTimeout(() => setSimulating(false), 1200);
-  };
+const Header = ({ simulating, onSimulate }: HeaderProps) => {
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="container mx-auto px-4 py-6">
@@ -22,15 +14,12 @@ const Header = ({ onSimulate }: HeaderProps) => {
               <LightningIcon className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="md:text-2xl font-bold text-gray-900">
-                EV Charging Simulation
-              </h1>
-              <p className="text-sm text-gray-600">Reonic</p>
+              <h1 className="md:text-2xl font-bold text-gray-900">Reonic </h1>
+              <p className="text-sm text-gray-600">EV Charging Simulation</p>
             </div>
           </div>
 
           <div className="flex items-center space-x-4">
-            {/* Status dot + text */}
             <div className="flex items-center space-x-2">
               <div
                 className={`w-2.5 h-2.5 rounded-full ${
@@ -42,9 +31,9 @@ const Header = ({ onSimulate }: HeaderProps) => {
               </span>
             </div>
 
-            {/* Simulate button */}
             <button
-              onClick={handleClick}
+              onClick={onSimulate}
+              disabled={simulating}
               className={`px-4 py-1.5 rounded-md text-sm font-medium text-white transition-colors duration-200 ${
                 simulating
                   ? "bg-yellow-500 hover:bg-yellow-600"

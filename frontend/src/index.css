@@ -37,4 +37,22 @@
   .input-field {
     @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
   }
+
+  .select-caret {
+    @apply px-2 pr-10 py-1 h-8 min-w-[110px]
+           rounded-md border bg-white text-blue-700
+           border-blue-200 hover:border-blue-300
+           focus:outline-none focus:ring-blue-200
+           text-xs;
+
+    /* hide native arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20' fill='%232563eb' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center; /* keeps arrow away from border */
+    background-size: 0.9rem;
+  }
 }

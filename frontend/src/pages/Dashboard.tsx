@@ -6,12 +6,14 @@ interface DashboardProps {
   results: SimulationResults;
   parameters: SimulationParameters;
   onParametersChange: (p: SimulationParameters) => void;
+  simulating: boolean;
 }
 
 const Dashboard = ({
   results,
   parameters,
   onParametersChange,
+  simulating,
 }: DashboardProps) => {
   return (
     <div className="container mx-auto px-4 py-8">
@@ -24,7 +26,7 @@ const Dashboard = ({
         </div>
 
         <div className="lg:col-span-2">
-          <ResultsDashboard results={results} />
+          <ResultsDashboard results={results} simulating={simulating} />
         </div>
       </div>
     </div>
