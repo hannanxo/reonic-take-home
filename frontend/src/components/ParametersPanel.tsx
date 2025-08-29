@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { SimulationParameters } from "../types";
+import { MIN_CAR_CONS, MIN_CP_POWER } from "../types/constants";
 
 interface ParameterPanelProps {
   parameters: SimulationParameters;
@@ -22,41 +23,6 @@ const ParameterPanel = ({
     onParametersChange(updated);
   };
 
-  // const handleCustomStationChange = (
-  //   index: number,
-  //   field: keyof ChargingStation,
-  //   value: number
-  // ) => {
-  //   const updatedStations = [...localParameters.customStations];
-  //   updatedStations[index] = { ...updatedStations[index], [field]: value };
-  //   const updated = { ...localParameters, customStations: updatedStations };
-  //   setLocalParameters(updated);
-  //   onParametersChange(updated);
-  // };
-
-  // const addCustomStation = () => {
-  //   const newStation: ChargingStation = {
-  //     id: Date.now(),
-  //     power: 11,
-  //     count: 1,
-  //   };
-  //   const updated = {
-  //     ...localParameters,
-  //     customStations: [...localParameters.customStations, newStation],
-  //   };
-  //   setLocalParameters(updated);
-  //   onParametersChange(updated);
-  // };
-
-  // const removeCustomStation = (index: number) => {
-  //   const updatedStations = localParameters.customStations.filter(
-  //     (_, i) => i !== index
-  //   );
-  //   const updated = { ...localParameters, customStations: updatedStations };
-  //   setLocalParameters(updated);
-  //   onParametersChange(updated);
-  // };
-
   return (
     <div className="space-y-6">
       <div className="card">
@@ -64,7 +30,7 @@ const ParameterPanel = ({
           Simulation Parameters
         </h2>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Number of Charge Points
@@ -114,8 +80,7 @@ const ParameterPanel = ({
             </label>
             <input
               type="number"
-              min="10"
-              max="30"
+              min={MIN_CAR_CONS}
               step="0.1"
               value={localParameters.carConsumption}
               onChange={(e) =>
@@ -124,8 +89,18 @@ const ParameterPanel = ({
                   parseFloat(e.target.value) || 18
                 )
               }
-              className="input-field"
+              aria-invalid={localParameters.carConsumption < MIN_CAR_CONS}
+              className={`input-field ${
+                localParameters.carConsumption < MIN_CAR_CONS
+                  ? "border-red-300 focus:ring-red-200"
+                  : ""
+              }`}
             />
+            {localParameters.carConsumption < MIN_CAR_CONS && (
+              <p className="mt-1 text-xs text-red-600">
+                Minimum is {MIN_CAR_CONS} kWh/100km.
+              </p>
+            )}
           </div>
 
           <div>
@@ -134,18 +109,28 @@ const ParameterPanel = ({
             </label>
             <input
               type="number"
-              min="3"
-              max="350"
-              step="0.1"
+              min={MIN_CP_POWER}
+              step={0.1}
               value={localParameters.chargingPower}
-              onChange={(e) =>
+              onChange={(e) => {
+                const v = e.currentTarget.valueAsNumber;
                 handleInputChange(
                   "chargingPower",
-                  parseFloat(e.target.value) || 11
-                )
-              }
-              className="input-field"
+                  Number.isNaN(v) ? localParameters.chargingPower : v
+                );
+              }}
+              aria-invalid={localParameters.chargingPower < MIN_CP_POWER}
+              className={`input-field ${
+                localParameters.chargingPower < MIN_CP_POWER
+                  ? "border-red-300 focus:ring-red-200"
+                  : ""
+              }`}
             />
+            {localParameters.chargingPower < MIN_CP_POWER && (
+              <p className="mt-1 text-xs text-red-600">
+                Minimum is {MIN_CP_POWER} kW.
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -164,7 +149,7 @@ const ParameterPanel = ({
           </button>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
           {localParameters.customStations.map((station, index) => (
             <div
               key={station.id}

@@ -21,3 +21,6 @@ export const initialResults: SimulationResults = {
   exemplaryDay: [],
   chargepointPower: [],
 };
+
+export const MIN_CAR_CONS = 18;
+export const MIN_CP_POWER = 11;
