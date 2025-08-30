@@ -17,6 +17,10 @@ Clicking on the simulate button generates the mock data and shows skeletons/spin
 
 ## How mock data is generated
 
-Since the task didn't mention connecting the frontend with the task1 I used functional mockups and created the data randomly. But I utilized the **Number of Charge Points** & **Arrival Probability Multiplier** by utilizing their values as weights in data generation.
+Since the task didn't mention connecting the frontend with the task1 I used functional mockups and created the data randomly. But I utilized the **_Number of Charge Points_** & **_Arrival Probability Multiplier_** by utilizing their values as weights in data generation. The number of rows in the **_Chargepoint Summary_** depend on the charging point parameter.
+
+## Code Comments
+
+I have added some comments where I felt necessary to explain why I did or use a particular thing and for some components I have also added abstract level notes detailing what's happening in the code.
 
 ## Expanding the current code
