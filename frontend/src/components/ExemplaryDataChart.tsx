@@ -174,7 +174,7 @@ const ExemplaryDayChart = ({ data, simulating }: ExemplaryDayChartProps) => {
 
       {simulating ? (
         <div className="flex-1 border border-gray-200 rounded-lg flex items-center justify-center">
-          <Spinner label="Generating charts…" />
+          <Spinner label="Generating…" />
         </div>
       ) : !hasData ? (
         <div className="flex-1 border border-gray-200 rounded-lg flex items-center justify-center text-gray-500">

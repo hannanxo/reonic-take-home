@@ -5,7 +5,6 @@ export const defaultParameters = {
   arrivalMultiplier: 100,
   carConsumption: 18,
   chargingPower: 11,
-  customStations: [],
 };
 
 export const initialResults: SimulationResults = {

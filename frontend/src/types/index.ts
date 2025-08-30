@@ -1,15 +1,8 @@
-export interface ChargingStation {
-  id: number;
-  power: number; // in kW
-  count: number;
-}
-
 export interface SimulationParameters {
   chargePoints: number;
   arrivalMultiplier: number; // 20-200%, default 100%
   carConsumption: number; // kWh per 100km, default 18
   chargingPower: number; // kW per chargepoint, default 11
-  customStations: ChargingStation[];
 }
 
 export interface SimulationResults {
@@ -48,4 +41,31 @@ export interface ChartData {
     borderColor?: string;
     borderWidth?: number;
   }[];
+}
+
+// Backend DTOs
+export interface ApiParameters {
+  id: number;
+  chargePoints: number;
+  arrivalMultiplier: number;
+  carConsumption: number;
+  chargingPower: number;
+}
+
+export interface ApiSimulationResult {
+  id: number;
+  totalEnergyCharged: number;
+  peakPower: number;
+  concurrencyFactor: number;
+  exemplaryDay: Array<{ hour: number; power: number; activeStations: number }>;
+  chargepointPower: Array<{
+    stationId: number;
+    averagePower: number;
+    peakPower: number;
+    utilization: number;
+  }>;
+  chargingEventsYear: number;
+  chargingEventsMonth: number;
+  chargingEventsWeek: number;
+  chargingEventsDay: number;
 }

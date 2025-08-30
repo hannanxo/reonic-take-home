@@ -1,10 +1,12 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
+import { SimulationParameters } from "./entities/SimulationParameters";
+import { SimulationResults } from "./entities/SimulationResults";
 
 export const AppDataSource = new DataSource({
   type: "sqlite",
-  database: process.env.DB_PATH ?? "./ev.db",
-  entities: [],
+  database: "./database.sqlite",
   synchronize: true,
-  logging: false,
+  logging: true,
+  entities: [SimulationParameters, SimulationResults],
 });
