@@ -43,7 +43,7 @@ const ChargePointSummary = ({
 
       {simulating ? (
         <div className="border border-gray-200 rounded-lg py-12 flex items-center justify-center">
-          <Spinner label="Generating results…" />
+          <Spinner label="Generating…" />
         </div>
       ) : (
         <>

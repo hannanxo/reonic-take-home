@@ -1,3 +1,6 @@
+/*
+  Generic KeyMetricCard component for displaying key metrics with an icon and value or children.
+ */
 import type { ReactNode } from "react";
 
 interface KeyMetricCardProps {

@@ -22,6 +22,7 @@ const Dashboard = ({
           <ParameterPanel
             parameters={parameters}
             onParametersChange={onParametersChange}
+            simulating={simulating}
           />
         </div>
 
